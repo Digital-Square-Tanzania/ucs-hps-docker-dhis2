@@ -17,7 +17,7 @@ services:
       - ucs-dhis2-network
 
   dhis2:
-    image: dhis2/core:2.39.0
+    image: dhis2/core:2.40
     container_name: dhis2-instance
     depends_on:
       - postgres
