@@ -24,6 +24,7 @@ services:
     ports:
       - "8181:8080" # Map host 8181 to container's 8080
     environment:
+      - DHIS2_HOME=${DHIS2_CONFIG_HOME}
       - DHIS2_DATABASE_HOST=${DHIS2_DATABASE_HOST}
       - DHIS2_DATABASE_PORT=${DHIS2_DATABASE_PORT}
       - DHIS2_DATABASE_NAME=${DHIS2_DATABASE_NAME}
