@@ -1,0 +1,39 @@
+networks:
+  ucs-dhis2-network:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgis/postgis:13-3.1
+    container_name: dhis2-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - dhis2-db-data:/var/lib/postgresql/data
+    networks:
+      - ucs-dhis2-network
+
+  dhis2:
+    image: dhis2/core:2.39.0
+    container_name: dhis2-instance
+    depends_on:
+      - postgres
+    ports:
+      - "8181:8080" # Map host 8181 to container's 8080
+    environment:
+      - DHIS2_DATABASE_HOST=${DHIS2_DATABASE_HOST}
+      - DHIS2_DATABASE_PORT=${DHIS2_DATABASE_PORT}
+      - DHIS2_DATABASE_NAME=${DHIS2_DATABASE_NAME}
+      - DHIS2_DATABASE_USER=${DHIS2_DATABASE_USER}
+      - DHIS2_DATABASE_PASSWORD=${DHIS2_DATABASE_PASSWORD}
+    restart: always
+    volumes:
+      - ./config/dhis.conf:/opt/dhis2/dhis.conf
+    networks:
+      - ucs-dhis2-network
+
+volumes:
+  dhis2-db-data:
