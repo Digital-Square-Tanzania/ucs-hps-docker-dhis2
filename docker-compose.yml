@@ -33,7 +33,7 @@ services:
     restart: always
     volumes:
       - ./config/dhis.conf:/opt/dhis2/dhis.conf
-      - ./config/conf:/usr/local/tomcat/conf/
+      - ./config/conf/context.xml:/usr/local/tomcat/conf/context.xml
     networks:
       - ucs-dhis2-network
 
