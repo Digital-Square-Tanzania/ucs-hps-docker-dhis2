@@ -33,12 +33,11 @@ services:
     restart: always
     volumes:
       - ./config/dhis.conf:/opt/dhis2/dhis.conf
-      - ./config/conf/context.xml:/usr/local/tomcat/conf/context.xml
+      - ./context.xml:/usr/local/tomcat/conf/context.xml
     networks:
       - ucs-dhis2-network
 
 volumes:
   dhis2-db-data:
-  config:
 
 
